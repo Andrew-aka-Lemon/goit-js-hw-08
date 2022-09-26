@@ -15,7 +15,6 @@ if (loadFromLocalStorage(USER_CURRENT_INPUT_KEY)) {
 setFormData();
 
 formRef.addEventListener('input', throttle(onFormInput, 500));
-// formRef.addEventListener('input', onFormInput);
 formRef.addEventListener('submit', throttle(onFormSubmit, 500));
 
 function onFormInput(event) {
@@ -27,11 +26,17 @@ function onFormInput(event) {
 
 function onFormSubmit(event) {
   event.preventDefault();
+
   const { email, message } = event.currentTarget.elements;
 
   const filledFormData = { email: email.value, message: message.value };
   console.log(filledFormData);
-  formRef.reset();
+
+  totalyClearForm(event);
+}
+
+function totalyClearForm(event) {
+  event.currentTarget.reset();
   removeFromLocalStorage(USER_CURRENT_INPUT_KEY);
 }
 
